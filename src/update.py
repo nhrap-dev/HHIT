@@ -6,7 +6,7 @@ try:
         from manage import Manage
         manage = Manage()
     manage.checkForToolUpdates()
-##    manage.checkForHazPyUpdates() #hazpy is not installed in virtual env, this will fail as it can't check installed version of hazpy.
+    manage.checkForHazPyUpdates()
 except Exception as e:
     import ctypes
     import sys
