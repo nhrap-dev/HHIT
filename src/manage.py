@@ -184,6 +184,12 @@ class Manage:
         except:
             self.messageBox(0, 'Unable to check for tool updates. If this error persists, contact hazus-support@riskmapcds.com for assistance.', "HazPy", 0x1000 | 0x4)
 
+    def safe_unzip(self, zip_file, extract_path='.'):
+        with ZipFile(zip_file, 'r') as zf:
+            for member in zf.infolist():
+                file_path = os.path.realpath(os.path.join(extract_path, member.filename))
+                if file_path.startswith(os.path.realpath(extract_path)):
+                    zf.extract(member, extract_path)
 
     def updateTool(self):
 
@@ -192,13 +198,6 @@ class Manage:
             from shutil import rmtree
             from io import BytesIO
             from zipfile import ZipFile
-
-            def safe_unzip(zip_file, extract_path='.'):
-                with ZipFile(zip_file, 'r') as zf:
-                    for member in zf.infolist():
-                        file_path = os.path.realpath(os.path.join(extract_path, member.filename))
-                        if file_path.startswith(os.path.realpath(extract_path)):
-                            zf.extract(member, extract_path)
 
             self.handleProxy()
             
@@ -209,7 +208,7 @@ class Manage:
                 z = ZipFile(BytesIO(r.content))
                 #z.extractall()
                 print('safe unzip start')
-                safe_unzip(z)
+                self.safe_unzip(z)
                 print('safe unzip stop')
                 fromDirectory = z.namelist()[0]
                 toDirectory = './'
