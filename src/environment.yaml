@@ -1,4 +1,4 @@
-name: hazus_env_hhit
+name: hazus_env
 channels:
   - nhrap
   - nsls2forge
