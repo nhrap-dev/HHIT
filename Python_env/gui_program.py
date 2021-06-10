@@ -33,8 +33,8 @@ try:
     '''for windows 10 4k screens'''
     from ctypes import windll
     windll.shcore.SetProcessDpiAwareness(1)
-except:
-    pass
+except ImportError:
+    print('Failed importing ctypes windll for windows 10 4k screens')
 
 print('finished imports')
 
