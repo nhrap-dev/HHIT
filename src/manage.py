@@ -185,8 +185,16 @@ class Manage:
             self.messageBox(0, 'Unable to check for tool updates. If this error persists, contact hazus-support@riskmapcds.com for assistance.', "HazPy", 0x1000 | 0x4)
 
 
-    def updateTool(self):
+    def safe_unzip(self, zf, extract_path='.'):
+        try:
+            for member in zf.infolist():
+                file_path = os.path.realpath(os.path.join(extract_path, member.filename))
+                if file_path.startswith(os.path.realpath(extract_path)):
+                    zf.extract(member, extract_path)
+        except Exception as e:
+            print('Exception safe_unzip:',e)
 
+    def updateTool(self):
         try:
             from distutils.dir_util import copy_tree
             from shutil import rmtree
@@ -200,7 +208,8 @@ class Manage:
                                          "https://github.com/nhrap-hazus/HHIT/archive/main.zip"]:
                 r = requests.get(self.tool_zipfile_url)
                 z = ZipFile(BytesIO(r.content))
-                z.extractall()
+                #z.extractall()
+                self.safe_unzip(z)
                 fromDirectory = z.namelist()[0]
                 toDirectory = './'
                 copy_tree(fromDirectory, toDirectory)
