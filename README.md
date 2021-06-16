@@ -23,7 +23,7 @@ The HHIT requires Hazus, ArcGIS Desktop, Anaconda, and an active internet connec
 
 ![Download HHIT](Python_env/assets/images/DownloadHHIT.jpg "Download HHIT") 
 
-**2. Double-click "hurricane-hazard-import-tool.py".** If you don't have the Hazus Python Library installed, follow the prompt to install, then double-click "hurricane-hazard-import-tool.py" again. If you have an older version of the HHIT tool, follow the prompt to install, then double-click "hurricane-hazard-import-tool.py" again. If you have a much older version of the HHIT tool or the Hazus Python Library then during the install/update there may be many conflicts and Anaconda will try to resolve them, which can take a long time. If Anaconda is unable to resolve the conflicts, then it is best to use Anaconda to delete the 'hazus_env' environment and then install a fresh Hazus Python Library by double-clicking the "hurricane-hazard-import-tool.py".
+**2. Double-click "hurricane-hazard-import-tool.py".** If you don't have the Hazus Python Library installed, follow the prompt to install, then double-click "hurricane-hazard-import-tool.py" again. If you have an older version of the HHIT tool, follow the prompt to install, then double-click "hurricane-hazard-import-tool.py" again. If you have a much older version of the HHIT tool or the Hazus Python Library then during the install/update there may be many conflicts and Anaconda will try to resolve them, which can take a long time. If Anaconda is unable to resolve the conflicts, then it is best to use Anaconda to delete the 'hazus_env' environment and then install a fresh Hazus Python Library by double-clicking the "hurricane-hazard-import-tool.py". Please see the Troubleshooting section for step by step instructions.
 
 ![Run HHIT](Python_env/assets/images/RunHHIT.jpg "Run HHIT") 
 
@@ -45,6 +45,32 @@ The HHIT requires Hazus, ArcGIS Desktop, Anaconda, and an active internet connec
    3. Select "Next" and proceed through the Hazus wizard until a new scenario for your selected storm is saved.
 
 ![HHIT Next Steps](Python_env/assets/images/NextSteps.png "HHIT Next Steps")
+
+## Troubleshooting
+
+Please reach out to the Hazus Team any time for help troubleshooting tool issues at fema-hazus-support@fema.dhs.gov.
+
+Hazus open source tools use a centrally managed Python environment added to your machine upon installation. If you downloaded and installed HHIT prior to 2021, you may need to delete your old Python environment - called "hazus_env". If you're having issues opening HHIT or if the version number in your "src/__init__.py" file reads '0.0.4' or older, try one of the two options below to delete your old Python environment:
+
+
+**Using Anaconda:**
+1. Delete HHIT from your machine.
+2. Open Anaconda.
+3. Select the 'hazus_env'.
+4. Click the 'Remove' button.
+5. A popup will appear asking you to confirm. Click the 'Remove' button. This may take a few minutes.
+6. Download the latest HHIT and it will create the hazus_env and install hazpy.
+![Anaconda Remove Environment](Python_env/assets/images/AnacondaRemoveEnv.jpg "Anaconda Remove hazus_env")
+
+**Using Command Line:**
+1. Delete HHIT from your machine.
+2. Open a command line prompt
+3. Enter the following without qoutes 'conda info --envs' to see your environments. 'hazus_env' should be listed.
+4. Enter the following without quotes 'conda env remove --name hazus_env' to remove the environment. This may take a few minutes.
+5. Enter the following without qoutes 'conda info --envs' to see your environments again and hazus_env should not be listed.
+6. Download the latest HHIT and it will create the hazus_env and install hazpy.
+![Command Line Remove Environment](Python_env/assets/images/CommandLineRemoveEnv.jpg "Command Line Remove hazus_env")
+
 
 ## Documentation
 
