@@ -5,7 +5,7 @@ Launch the HHIT by double-clicking the "hurricane-hazard-import-tool.py" file in
 
 ## Requirements
 
-The HHIT requires Hazus, ArcGIS Desktop, Anaconda, and an active internet connection. Anaconda is a free software that automatically manages Python packages required to run Hazus open source tools, including the Hazus Python package: https://fema-nhrap.s3.amazonaws.com/Hazus/Python/build/html/index.html
+The HHIT requires Hazus, ArcGIS Desktop, Anaconda, and an active internet connection. Anaconda is software that automatically manages Python packages required to run Hazus open source tools, including the Hazus Python package.
 
 1. Go to https://www.anaconda.com/distribution/
 
@@ -19,7 +19,7 @@ The HHIT requires Hazus, ArcGIS Desktop, Anaconda, and an active internet connec
 
 ## To Use
 
-**Must have Anaconda 3.7 or higher installed. Please read requirements**
+**Must have Anaconda with Python 3.8 or higher installed. Please read [requirements](#requirements).**
 
 **1. Download zip folder of tool from GitHub, unzip**
 
