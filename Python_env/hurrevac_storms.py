@@ -95,12 +95,14 @@ class StormsInfo:
 ##        logging.debug("Running GetStormsJSON")
         manage = Manage()
         manage.handleProxy()
-        openUrl = requests.get(hurrevacSettings['HurrevacStormsURL'])
+        openUrl = requests.get(hurrevacSettings['HurrevacStormsURL'], timeout=10)
         if(openUrl.status_code == 200):
             stormsJSON = openUrl.json()
             self.JSON = stormsJSON
         else:
-            print("Error receiving data", openUrl.getcode())
+            print("Error receiving data", openUrl.status_code)
+            #TODO the app crashes if no internet or the hurrevac hvx api website is down
+##            breakpoint()
 ##            logging.error("Error receiving data", openUrl.getcode())
             
     def GetStormsTypes(self):
@@ -257,27 +259,45 @@ class StormInfo:
 
         Keyword Arguments:
            StormId :string -- Hurrevac stormid
+
+        Notes: 
+            https://hvx.hurrevac.com/hvx-api/v1/advisories/storm/{stormidhere has storms and
+            empty json for simulated storms.
+            https://hvx.hurrevac.com/hvx-api/v1/sim/advisories/storm/{stormidhere} has simulated storms and
+            empty json for non-simulated storms.
         """
 ##        logging.debug("Running GetStormJSON")
         self.Id = StormId
         #from internet
         #attribute and used as input to GetStormDataframe
-        url = hurrevacSettings['HurrevacStormURL'] + "/" + StormId
         manage = Manage()
         manage.handleProxy()
-        openUrl = requests.get(url)
-        if(openUrl.status_code == 200):
-            #Need to check if response is 200 but there is no data "[]", ie a non-valid stormid request.
-            stormJSON = openUrl.json()
-            if len(stormJSON) == 0:
-                popupmsg("StormID not found.")
-##                logging.warning("stormJSON length is 0, possible incorrect stormid")
+
+        url_list = []
+        url_list.append(hurrevacSettings['HurrevacStormURL'] + "/" + StormId)
+        url_list.append(hurrevacSettings['HurrevacSimulatedStormURL'] + "/" + StormId)
+
+        url_valid_list = []
+        for url in url_list:
+            openUrl = requests.get(url, timeout=10)
+            if(openUrl.status_code == 200):
+                url_valid_list.append(url)
+
+        if len(url_valid_list) > 0:
+            for url in url_valid_list:
+                openUrl = requests.get(url, timeout=10)
+                stormJSON = openUrl.json()
+                if len(stormJSON) > 0:
+                    self.JSON = stormJSON
+                    break
             else:
-                self.JSON = stormJSON
+                popupmsg("StormID not found.")
+                print(f"StormID data not found in {url_valid_list}")
+##              logging.warning("stormJSON length is 0, possible incorrect stormid")
         else:
             popupmsg("Error receiving data. Check settings.json url or site is down or changed.")
-            print("Error receiving data: %s" % openUrl.getcode())
-##            logging.error("Error receiving data: %s" % openUrl.getcode())
+            print("Error receiving data: %s" % openUrl.status_code)
+##          logging.error("Error receiving data: %s" % openUrl.status_code)
 
     def GetStormDataframe(self, stormJSON):
         """ Convert Hurrevac JSON of user's selected stormid into pandas dataframes using
