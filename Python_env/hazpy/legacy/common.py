@@ -68,8 +68,12 @@ class HazusDB():
             Returns:
                 writeConn: sqlalchemy connection
         """
-        engine = create_engine(self.getConnectionString('sqlalchemy').format(db=databaseName))
-        writeConn = engine.connect()
+        try:
+            engine = create_engine(self.getConnectionString('sqlalchemy').format(db=databaseName)) #Hazus 5.0 and below
+            writeConn = engine.connect()
+        except:
+            engine = create_engine(self.getConnectionString('sqlalchemy_auth').format(db=databaseName)) #Hazus 5.1 and above
+            writeConn = engine.connect()
         self.writeConn = writeConn
         return writeConn
 
