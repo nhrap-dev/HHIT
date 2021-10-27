@@ -54,7 +54,8 @@ class HazusDB():
                 conn = py.connect(self.getConnectionString('pyodbc').format(d=driver,cn=computer_name))
                 break
             except:
-                continue
+                conn = py.connect(self.getConnectionString('pyodbc_auth').format(d=driver,cn=computer_name))
+                break
         self.conn = conn
         return conn
 
