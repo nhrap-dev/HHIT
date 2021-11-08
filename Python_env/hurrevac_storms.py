@@ -102,14 +102,12 @@ class StormsInfo:
         else:
             print("Error receiving data", openUrl.status_code)
             #TODO the app crashes if no internet or the hurrevac hvx api website is down
-##            breakpoint()
 ##            logging.error("Error receiving data", openUrl.getcode())
             
     def GetStormsTypes(self):
         """ Populates the storm types dropdown
         """
 ##        logging.debug("Running GetStormsTypes")
-        #working with json
         StormTypes = hurrevacSettings['ShowStormTypes']
         StormTypesList = []
         for key in StormTypes.keys():
@@ -122,7 +120,6 @@ class StormsInfo:
         """ Populates the storm basins dropdown
         """
 ##        logging.debug("Running GetStormsBasins")
-        #working with json
         StormBasins = hurrevacSettings['BasinsDictionary']
         StormBasinsLabels = list(StormBasins.values())
         self.basins = tuple(StormBasinsLabels)
@@ -131,7 +128,6 @@ class StormsInfo:
         """ Populates the storm years dropdown
         """
 ##        logging.debug("Running GetStormsYears")
-        #working with json
         yearList = []
         for i in self.JSON:
             try:
@@ -141,11 +137,6 @@ class StormsInfo:
             yearList.append(year)
         yearList.sort(reverse=True)
         self.years = tuple(yearList)
-        
-    # def GetOptimizeStormTrack(self):
-    #     with open("hurrevac_settings.json") as f:
-    #         hurrevacSettings = json.load(f)
-    #     self.optimizeStormTrack = hurrevacSettings['OptimizeStormTrack']
     
     def GetStormNames(self, stormTypes, basinLabel, year):
         """ Acquires the names of storms from Hurrevac json data
@@ -166,7 +157,6 @@ class StormsInfo:
         '''Get basins code from label in settings.json'''
         StormBasins = hurrevacSettings['BasinsDictionary']
         basinCode = get_key(basinLabel, StormBasins)
-        #Note: working with json
         stormNameStatusIDList = []
         
         activeStormsDictList = []
@@ -266,10 +256,7 @@ class StormInfo:
             https://hvx.hurrevac.com/hvx-api/v1/sim/advisories/storm/{stormidhere} has simulated storms and
             empty json for non-simulated storms.
         """
-##        logging.debug("Running GetStormJSON")
         self.Id = StormId
-        #from internet
-        #attribute and used as input to GetStormDataframe
         manage = Manage()
         manage.handleProxy()
 
@@ -311,8 +298,6 @@ class StormInfo:
            stormJSON : json
         """
 ##        logging.debug("Running GetStormDataframe")
-        #from other python script
-        #attribute and used as input to ExportToJSON
         stormDataframes = hurrevac_storm.processStormJSON(stormJSON)
         self.huScenarioName = stormDataframes[0]
         self.huScenario = stormDataframes[1]
@@ -321,9 +306,6 @@ class StormInfo:
 #Test some of the code above...
 if __name__ == "__main__":
     myclass = StormsInfo()
-    # myclass.GetStormsJSON()
-    # myclass.GetStormsBasins()
-    # myclass.GetStormsYears()
     
     print("all possible types from config:", myclass.types)
     print()
@@ -340,11 +322,8 @@ if __name__ == "__main__":
     print("Eastern Pacific 2020 storm names:", myclass.GetStormNames(['Active', 'Historical', 'Exercise', 'Simulated'], 'Eastern Pacific', '2020'))
     print()
 
-    
     storm1 = StormInfo()
     storm1.GetStormJSON("al012020")
-    #print(storm1.Id)
-    #print(storm1.JSON)
     print(storm1.Id)
     storm1.GetStormDataframe(storm1.JSON)
     print(storm1.huScenario)
