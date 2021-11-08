@@ -274,10 +274,10 @@ class StormInfo:
         manage.handleProxy()
 
         url_list = []
-        url_list.append(hurrevacSettings['HurrevacActiveStormURL'] + "/" + StormId)
-        url_list.append(hurrevacSettings['HurrevacHistoricStormURL'] + "/" + StormId)
-        url_list.append(hurrevacSettings['HurrevacExerciseStormURL'] + "/" + StormId)
-        url_list.append(hurrevacSettings['HurrevacSimulatedStormURL'] + "/" + StormId)
+        url_list.append(hurrevacSettings['HurrevacActiveStormURL'] + StormId)
+        url_list.append(hurrevacSettings['HurrevacHistoricStormURL'] + StormId)
+        url_list.append(hurrevacSettings['HurrevacExerciseStormURL'] + StormId)
+        url_list.append(hurrevacSettings['HurrevacSimulatedStormURL'] + StormId)
 
         url_list_unique = list(set(url_list))
 
