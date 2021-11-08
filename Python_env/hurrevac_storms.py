@@ -5,15 +5,18 @@ Requirements: Python 3.7, Anaconda3 64bit
 @author: Colin Lindeman
 """
 
+import json
+#import logging
 import os
-from subprocess import call
-import socket
 import requests
+import socket
+from subprocess import call
+import time
 import tkinter as tk
 import tkinter.ttk as ttk
-import json
+
 from Python_env import hurrevac_storm
-##import logging
+
 
 try:
     with open("hurrevac_settings.json") as f:
@@ -90,19 +93,29 @@ class StormsInfo:
         self.GetStormsBasins()
     
     def GetStormsJSON(self):
-        """ Populates JSON variable with json storms data from Hurrevac url
+        """ Populates JSON variable with json storms data from Hurrevac url\
+        
+        Notes:
+            TODO the app crashes if no internet or the hurrevac hvx api website is down
         """
 ##        logging.debug("Running GetStormsJSON")
         manage = Manage()
         manage.handleProxy()
-        openUrl = requests.get(hurrevacSettings['HurrevacStormsURL'], timeout=10)
+        for attempt in range(3):
+            try:
+                openUrl = requests.get(hurrevacSettings['HurrevacStormsURL'], timeout=10)
+            except:
+                time.sleep(2)
+                continue
+            else:
+                break
+        else:
+            print("Error receiving data")
         if(openUrl.status_code == 200):
             stormsJSON = openUrl.json()
             self.JSON = stormsJSON
         else:
-            print("Error receiving data", openUrl.status_code)
-            #TODO the app crashes if no internet or the hurrevac hvx api website is down
-##            logging.error("Error receiving data", openUrl.getcode())
+            print(f"Error GetStormsJSON: {openUrl.status_code}")
             
     def GetStormsTypes(self):
         """ Populates the storm types dropdown
