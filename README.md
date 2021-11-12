@@ -3,7 +3,7 @@ The Hurricane Hazard Import Tool (HHIT) downloads, prepares, and imports Hurreva
 
 ## Requirements
 
-The HHIT requires Hazus, conda, and an active internet connection. If you haven't already, follow this [README](https://github.com/nhrap-dev/Environment-Setup/tree/update-README) to setup your machine with miniforge and conda before trying to run FAST
+The HHIT requires Hazus, conda, and an active internet connection. If you haven't already, follow this [README](https://github.com/nhrap-dev/Environment-Setup/tree/update-README) to setup your machine with miniforge and conda before trying to run HHIT.
 
 ## To Use
 
