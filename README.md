@@ -3,11 +3,11 @@ The Hurricane Hazard Import Tool (HHIT) downloads, prepares, and imports Hurreva
 
 ## Requirements
 
-The HHIT requires Hazus, conda, and an active internet connection. If you haven't already, follow this [README](https://github.com/nhrap-dev/Environment-Setup/tree/update-README) to setup your machine with miniforge and conda before trying to run HHIT.
+The HHIT requires Hazus, conda, and an active internet connection. Follow the [README](https://github.com/nhrap-dev/Environment-Setup/tree/update-README) to setup your machine with miniforge and conda before running HHIT.
 
 ## To Use
 
-**1. Download zip folder of tool from GitHub, unzip**
+**1. Download zip folder of tool from GitHub, then unzip**
 
 ![Download Release HHIT](Python_env/assets/images/DownloadReleaseHHIT.jpg "Download Release HHIT") 
 
@@ -56,6 +56,6 @@ Hurricane Dorian (2019) optimized storm track; data points in orange portion of 
 
 ## Contact
 
-Issues can be reported through the repository on Github (https://github.com/nhrap-hazus/HHIT)
+Issues can be reported through the repository on GitHub (https://github.com/nhrap-hazus/HHIT)
 
-For questions contact fema-hazus-support@fema.dhs.gov
+For questions: contact fema-hazus-support@fema.dhs.gov
